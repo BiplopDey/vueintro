@@ -9,7 +9,7 @@
         </li>
       </ul>
       <input type="text" v-model="newMovie.title" />
-      <button v-if="isEditing" @click="finishEditing">Edit</button>
+      <button v-if="isEditing" @click="update">Update</button>
       <button v-else @click="addMovie">Add</button>
       <p>{{ newMovie.title }}</p>
     </h1>
@@ -36,11 +36,11 @@ export default {
       this.movies.splice(index, 1);
     },
     editMovie(index) {
-      this.newMovie = this.movies[index];
+      this.newMovie = this.movies[index]; // aqui el apuntador newMovie guarda la direccion de la peli
       this.isEditing = true;
     },
-    finishEditing() {
-      this.newMovie = {};
+    update() {
+      this.newMovie = {}; // asignar otra direccion para que no apunte al elemento que hemos editado del movie
       this.isEditing = false;
     },
   },
