@@ -35,6 +35,26 @@
       "director": "M. Night Shyamalan",
       "clasificacion": "Drama",
       "id": 10
+    },
+    {
+      "nombre": "Postman hace un push sin id",
+      "id": 11
+    },
+    {
+      "nombre": "nuebo",
+      "id": 12
+    },
+    {
+      "nombre": "elemento 8",
+      "id": 13
+    },
+    {
+      "nombre": "d",
+      "id": 14
+    },
+    {
+      "nombre": "asdf",
+      "id": 15
     }
   ],
   "clasificaciones": [
