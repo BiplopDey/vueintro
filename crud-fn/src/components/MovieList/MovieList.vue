@@ -32,11 +32,10 @@ export default {
   methods: {
     addMovie() {
       if (!this.newMovie.nombre) return;
-      axios.post("http://localhost:3000/peliculas", this.newMovie);
+      this.create();
       this.fetchAll();
-      // this.movies.push(this.newMovie);
+      // this.movies.push(this.newMovie);// //this.movies = [...this.movies, this.newMovie];
       this.newMovie = {}; // basicament estoy asignandole otra direccion, ie hacer un malloc
-      // //this.movies = [...this.movies, this.newMovie];
     },
     deleteMovie(index) {
       const id = this.movies[index].id;
@@ -56,6 +55,9 @@ export default {
       axios
         .get("http://localhost:3000/peliculas")
         .then((res) => (this.movies = res.data));
+    },
+    create() {
+      axios.post("http://localhost:3000/peliculas", this.newMovie);
     },
     deleteById(id) {
       axios.delete(`http://localhost:3000/peliculas/${id}`);
