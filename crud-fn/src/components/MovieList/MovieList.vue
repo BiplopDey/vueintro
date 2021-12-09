@@ -3,37 +3,44 @@
     <h1>
       <ul>
         <li v-for="(movie, index) in movies" :key="index">
-          {{ index }}-{{ movie.title }}
+          {{ index }}-{{ movie.nombre }}
           <button @click="deleteMovie(index)">delete</button>
           <button @click="editMovie(index)">edit</button>
         </li>
       </ul>
-      <input type="text" v-model="newMovie.title" />
+      <input type="text" v-model="newMovie.nombre" />
       <button v-if="isEditing" @click="update">Update</button>
       <button v-else @click="addMovie">Add</button>
-      <p>{{ newMovie.title }}</p>
+      <p>{{ newMovie.nombre }}</p>
     </h1>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       isEditing: false,
       newMovie: {},
-      movies: [{ title: "Foo" }, { title: "Bar" }],
+      movies: [],
     };
+  },
+  mounted() {
+    this.fetchAll();
   },
   methods: {
     addMovie() {
-      if (!this.newMovie.title) return;
+      if (!this.newMovie.nombre) return;
       this.movies.push(this.newMovie);
       this.newMovie = {}; // basicament estoy asignandole otra direccion, ie hacer un malloc
       //this.movies = [...this.movies, this.newMovie];
     },
     deleteMovie(index) {
-      this.movies.splice(index, 1);
+      const id = this.movies[index].id;
+      this.deleteById(id);
+      // this.movies.splice(index, 1);
+      this.fetchAll();
     },
     editMovie(index) {
       this.newMovie = this.movies[index]; // aqui el apuntador newMovie guarda la direccion de la peli
@@ -42,6 +49,14 @@ export default {
     update() {
       this.newMovie = {}; // asignar otra direccion para que no apunte al elemento que hemos editado del movie
       this.isEditing = false;
+    },
+    fetchAll() {
+      axios
+        .get("http://localhost:3000/peliculas")
+        .then((res) => (this.movies = res.data));
+    },
+    deleteById(id) {
+      axios.delete(`http://localhost:3000/peliculas/${id}`);
     },
   },
 };

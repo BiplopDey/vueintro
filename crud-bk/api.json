@@ -7,12 +7,6 @@
       "clasificacion": "Acción"
     },
     {
-      "id": 4,
-      "nombre": "300",
-      "director": "Zack Snyder",
-      "clasificacion": "Acción"
-    },
-    {
       "id": 5,
       "nombre": "El silencio de los corderos",
       "director": "Jonathan Demme",
@@ -31,9 +25,6 @@
       "clasificacion": "Documental"
     },
     {
-      "id": 8
-    },
-    {
       "nombre": "El sexto sentido",
       "director": "M. Night Shyamalan",
       "clasificacion": "Drama",
@@ -44,12 +35,6 @@
       "director": "M. Night Shyamalan",
       "clasificacion": "Drama",
       "id": 10
-    },
-    {
-      "nombre": "Batman",
-      "director": "M. Night Shyamalan",
-      "clasificacion": "Drama",
-      "id": 11
     }
   ],
   "clasificaciones": [
