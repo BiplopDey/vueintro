@@ -40,7 +40,7 @@ export default {
     },
     deleteMovie(index) {
       const id = this.movies[index].id;
-      this.deleteById(id);
+      moviesApiService.deleteById(id);
       // this.movies.splice(index, 1);
       this.fetchAll();
     },
@@ -56,9 +56,6 @@ export default {
       axios
         .get("http://localhost:3000/peliculas")
         .then((res) => (this.movies = res.data));
-    },
-    deleteById(id) {
-      axios.delete(`http://localhost:3000/peliculas/${id}`);
     },
   },
 };
