@@ -18,6 +18,7 @@
 
 <script>
 import axios from "axios";
+import { moviesApiService } from "@/services/moviesApiService.js";
 export default {
   data() {
     return {
@@ -32,7 +33,7 @@ export default {
   methods: {
     addMovie() {
       if (!this.newMovie.nombre) return;
-      this.create();
+      moviesApiService.create(this.newMovie);
       this.fetchAll();
       // this.movies.push(this.newMovie);// //this.movies = [...this.movies, this.newMovie];
       this.newMovie = {}; // basicament estoy asignandole otra direccion, ie hacer un malloc
@@ -55,9 +56,6 @@ export default {
       axios
         .get("http://localhost:3000/peliculas")
         .then((res) => (this.movies = res.data));
-    },
-    create() {
-      axios.post("http://localhost:3000/peliculas", this.newMovie);
     },
     deleteById(id) {
       axios.delete(`http://localhost:3000/peliculas/${id}`);
