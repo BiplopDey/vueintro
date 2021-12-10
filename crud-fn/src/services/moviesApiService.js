@@ -10,7 +10,9 @@ export const moviesApiService = {
   },
   fetchAll() {
     const data = axios.get(url).then((res) => res.data);
-    console.log(data);
     return data;
+  },
+  update(movie) {
+    axios.patch(url + `/${movie.id}`, movie);
   },
 };

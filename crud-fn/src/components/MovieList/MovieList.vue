@@ -34,28 +34,26 @@ export default {
     addMovie() {
       if (!this.newMovie.nombre) return;
       moviesApiService.create(this.newMovie);
-      this.fetchAll();
+      this.getAll();
       // this.movies.push(this.newMovie);// //this.movies = [...this.movies, this.newMovie];
-      this.newMovie = {}; // basicament estoy asignandole otra direccion, ie hacer un malloc
+      // this.newMovie = {}; // basicament estoy asignandole otra direccion, ie hacer un malloc
     },
     deleteMovie(index) {
       const id = this.movies[index].id;
       moviesApiService.deleteById(id);
       // this.movies.splice(index, 1);
-      this.fetchAll();
+      this.getAll();
     },
     editMovie(index) {
       this.newMovie = this.movies[index]; // aqui el apuntador newMovie guarda la direccion de la peli
       this.isEditing = true;
     },
     update() {
-      this.newMovie = {}; // asignar otra direccion para que no apunte al elemento que hemos editado del movie
+      moviesApiService.update(this.newMovie);
+      //console.log(this.newMovie);
+      // this.newMovie = {}; // asignar otra direccion para que no apunte al elemento que hemos editado del movie
       this.isEditing = false;
-    },
-    fetchAll() {
-      axios.get("http://localhost:3000/peliculas").then((res) => {
-        this.movies = res.data;
-      });
+      this.getAll();
     },
     async getAll() {
       this.movies = await moviesApiService.fetchAll();
