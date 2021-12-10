@@ -28,7 +28,7 @@ export default {
     };
   },
   mounted() {
-    this.fetchAll();
+    this.getAll();
   },
   methods: {
     addMovie() {
@@ -53,9 +53,12 @@ export default {
       this.isEditing = false;
     },
     fetchAll() {
-      axios
-        .get("http://localhost:3000/peliculas")
-        .then((res) => (this.movies = res.data));
+      axios.get("http://localhost:3000/peliculas").then((res) => {
+        this.movies = res.data;
+      });
+    },
+    async getAll() {
+      this.movies = await moviesApiService.fetchAll();
     },
   },
 };
