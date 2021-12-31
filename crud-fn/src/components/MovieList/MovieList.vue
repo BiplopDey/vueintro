@@ -57,10 +57,14 @@ export default {
       // this.movies = await moviesApiService.fetchAll();
       // this.isLoading = false;
 
-      axios.get("http://localhost:3000/peliculas").then((res) => {
-        this.movies = res.data;
+      axios.get("http://localhost:3000/peliculas")
+      .then((res) => {
+        this.movies = res.data; 
+      })
+      .then(() => {
         this.isLoading = false;
       });
+       
     },
   },
 };
