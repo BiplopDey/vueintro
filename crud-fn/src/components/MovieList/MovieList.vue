@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>
-      <ul>
+      <div v-if="isLoading">Is loading</div>
+      <ul v-else>
         <li v-for="(movie, index) in movies" :key="index">
           {{ index }}-{{ movie.nombre }}
           <button @click="deleteMovie(index)">delete</button>
@@ -23,6 +24,7 @@ export default {
   data() {
     return {
       isEditing: false,
+      isLoading: true,
       newMovie: {},
       movies: [],
     };
@@ -35,28 +37,30 @@ export default {
       if (!this.newMovie.nombre) return;
       moviesApiService.create(this.newMovie);
       this.getAll();
-      // this.movies.push(this.newMovie);// //this.movies = [...this.movies, this.newMovie];
-      // this.newMovie = {}; // basicament estoy asignandole otra direccion, ie hacer un malloc
     },
     deleteMovie(index) {
       const id = this.movies[index].id;
       moviesApiService.deleteById(id);
-      // this.movies.splice(index, 1);
       this.getAll();
     },
     editMovie(index) {
-      this.newMovie = this.movies[index]; // aqui el apuntador newMovie guarda la direccion de la peli
+      this.newMovie = this.movies[index];
       this.isEditing = true;
     },
     update() {
       moviesApiService.update(this.newMovie);
-      //console.log(this.newMovie);
-      // this.newMovie = {}; // asignar otra direccion para que no apunte al elemento que hemos editado del movie
       this.isEditing = false;
       this.getAll();
     },
-    async getAll() {
-      this.movies = await moviesApiService.fetchAll();
+    getAll() {
+      this.isLoading = true;
+      // this.movies = await moviesApiService.fetchAll();
+      // this.isLoading = false;
+
+      axios.get("http://localhost:3000/peliculas").then((res) => {
+        this.movies = res.data;
+        this.isLoading = false;
+      });
     },
   },
 };
